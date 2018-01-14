@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+//esse método pega apenas os últimos caracteres do link to YouTube
+
 void last_link(char* link, int char_count, char* last_chars){
     int linkSize = strlen(link);
     int calcLink = linkSize - char_count;
@@ -12,22 +14,22 @@ void last_link(char* link, int char_count, char* last_chars){
 }
 
 int main() {
-  char link[100];
-  char linkToYcapi[] = "https://ycapi.org/iframe/?v=";
+  char link[100]; //input do usuário será guardado aqui
+  char linkToYcapi[] = "https://ycapi.org/iframe/?v=";//link à ser concatenado
+  char comando [100];//string com o comando em si
+  char last_chars[12];//guarda os últimos caracteres do link do YT
 
   scanf("%s", link);
   //lê o tamanho da string pra capturar os últimos caracteres
   printf("\nTamanho da String: %i\n", strlen(link));
 
-  char last_chars[12];
   last_link(link, 11, last_chars);
 
-  printf("%s\n", last_chars);
-  printf("%s\n", last_chars);
-  printf("Ycapi  -----  %s\n", linkToYcapi);
-  printf("Linkfull: %s%s\n", linkToYcapi, last_chars);
+  strcat(linkToYcapi, last_chars);//concatena os links para formar apenas um
+  printf("Link Gerado :: %s\n", linkToYcapi);
+  sprintf(comando, "firefox-developer-edition %s", linkToYcapi);
 
-  system("firefox-developer-edition https://ycapi.org/iframe/?v=fRh_vgS2dFE");
+  system(comando);
 
   return 0;
 }
